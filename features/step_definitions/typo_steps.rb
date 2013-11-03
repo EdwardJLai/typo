@@ -32,7 +32,7 @@ end
 When /^I merge "(.+)" with "(.+)"/ do |article1, article2|
 	id = Article.find_by_title("#{article2}").id
 	step %{I follow "#{article1}"}
-	step %{I fill in "article_id" with "#{id}"}
+	step %{I fill in "merge_with" with "#{id}"}
 	step %{I press "Merge"}
 end
 

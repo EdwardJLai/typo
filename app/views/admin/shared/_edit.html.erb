@@ -5,12 +5,13 @@
   <%= render :partial => "form" %>
 
 <% end %>
-<div class='' style='display: <%=@hidden%>'>
-  <%= form_tag(params.merge(:controller => '/admin/content', :action => 'merge'), :method => :post, :name => "merge_with", :id => "merge_with") do %>
-    <h4><%= _("Merge Articles") %></h4>
-    Article ID <%= text_field_tag( :merge_id, nil, {:autocomplete => 'off', :style => 'width: 20%', :id => 'article_id', :value => ""}) %><br>
-    <%= submit_tag "Merge"%>
-    
-  <% end %>
-</div>    
-
+<% if current_user.admin? %>
+	<div class='' style='display: <%=@hidden%>'>
+		<%= form_tag(params.merge(:controller => '/admin/content', :action => 'merge'), :method => :post) do %>
+		  <h4><%= _("Merge Articles") %></h4>
+		  Article ID <%= text_field_tag( :merge_id, nil, {:autocomplete => 'off', :style => 'width: 20%', :id => 'merge_with', :value => "", :name => 'merge_with'}) %><br>
+		  <%= submit_tag "Merge"%>
+		  
+		<% end %>
+	</div>    
+<% end %>
