@@ -12,12 +12,12 @@ class Admin::ContentController < Admin::BaseController
   end
   
   def merge
-  	if Article.exists?(params[:merge_id])
+  	if Article.exists?(params[:merge_with])
 	  	@article1 = Article.find(params[:id])
-  		@article1.merge_with(params[:merge_id])
+  		@article1.merge_with(params[:merge_with])
   		flash[:notice] = "Merged files successfully"
   	else
-  		flash[:notice] = "Did not find post matching id #{params[:merge_id]}"
+  		flash[:notice] = "Did not find post matching id #{params[:article_id]}"
   	end
   	redirect_to :action => 'edit', id: params[:id]
   end

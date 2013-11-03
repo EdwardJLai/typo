@@ -7,11 +7,11 @@
 <% end %>
 <% if current_user.admin? %>
 	<div class='' style='display: <%=@hidden%>'>
-		<%= form_tag(params.merge(:controller => '/admin/content', :action => 'merge'), :method => :post) do %>
+		<%= form_tag(params.merge(:controller => 'admin/content', :action => 'merge'), :method => 'post') do %>
 		  <h4><%= _("Merge Articles") %></h4>
-		  Article ID <%= text_field_tag( :merge_id, nil, {:autocomplete => 'off', :style => 'width: 20%', :id => 'merge_with', :value => "", :name => 'merge_with'}) %><br>
+		  <%= label_tag(:merge_with, "Article ID:") %>
+		  <%= text_field_tag( :merge_with, nil, {:autocomplete => 'off', :style => 'width: 20%', :id => 'merge_with', :value => ""}) %><br>
 		  <%= submit_tag "Merge"%>
-		  
 		<% end %>
 	</div>    
 <% end %>
