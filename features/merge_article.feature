@@ -13,7 +13,7 @@ Feature: Merge articles
     And I am logged in as "Potato"
     And I make a new article with title "Barfoo" and body "dolor sit amet"
     And I log out
-  
+
   Scenario: Admin can see the merge page
   	Given I am logged into the admin panel
   	And I am on the all articles page
@@ -52,8 +52,7 @@ Feature: Merge articles
 		And I merge "Foobar" with "Barfoo"
 		Then I should see "Merged files successfully"
   	When I am on the all articles page
-  	Then I should not see "Barfoo"
-		And I should not see "Potato"
+  	Then "Foobar" should have the author "admin"
 
 	Scenario: Merged article should contain both articles' comments
   	Given I am logged into the admin panel

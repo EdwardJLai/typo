@@ -36,10 +36,15 @@ When /^I merge "(.+)" with "(.+)"/ do |article1, article2|
 	step %{I press "Merge"}
 end
 
+Then /^"(.+)" should have the author "(.+)"/ do |article, author|
+	writer = Article.find_by_title("#{article}").user.name
+	assert author == writer, "The article has author #{writer}"
+end
+
 When /^I add the comment "(.+)" to the article "(.+)"$/ do |comment, article|
 	step %{I am on the home page}
 	step %{I follow "#{article}"}
 	step %{I fill in "comment_author" with "me"}
 	step %{I fill in "comment_body" with "#{comment}"}
-	step %{I follow "comment"}
+	step %{I press "comment"}
 end
