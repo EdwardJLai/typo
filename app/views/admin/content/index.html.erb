@@ -1,3 +1,4 @@
+<p id="notice"><%= notice %></p>
 <% @page_heading = _('Manage articles') + content_tag(:div, link_to(_("New Article"), {:controller => 'content', :action => 'new'}, :id => 'dialog-link', :class => 'btn info'), :class => 'pull-right') %>
 
 <%= form_remote_tag  :url      => {:action => 'index'},

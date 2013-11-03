@@ -72,6 +72,11 @@ class Article < Content
   end
   
   def merge_with(other_article_id)
+  	other_article = Article.find(other_article_id)
+  	self.body = self.body + other_article.body if !other_article.body.nil?
+  	self.comments = self.comments.all + other_article.comments.all
+  	other_article.destroy
+  	self.save!
   end
 
   def set_permalink

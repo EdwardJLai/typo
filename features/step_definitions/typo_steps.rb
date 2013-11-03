@@ -28,3 +28,18 @@ end
 Then /^"(.+)" should not be visible$/ do |word|
 	page.should have_selector("\##{word}", visible: false)	
 end
+
+When /^I merge "(.+)" with "(.+)"/ do |article1, article2|
+	id = Article.find_by_title("#{article2}").id
+	step %{I follow "#{article1}"}
+	step %{I fill in "article_id" with "#{id}"}
+	step %{I press "Merge"}
+end
+
+When /^I add the comment "(.+)" to the article "(.+)"$/ do |comment, article|
+	step %{I am on the home page}
+	step %{I follow "#{article}"}
+	step %{I fill in "comment_author" with "me"}
+	step %{I fill in "comment_body" with "#{comment}"}
+	step %{I follow "comment"}
+end

@@ -1,3 +1,4 @@
+<p id="notice"><%= notice %></p>
 <% className = form_action.delete(:class) %>
 <%= form_tag(form_action, :id => "#{form_type}_form", :enctype => "multipart/form-data", :class => className) do %>
 
@@ -5,10 +6,10 @@
 
 <% end %>
 <div class='' style='display: <%=@hidden%>'>
-  <%= form_for(@article, :url => admin_content_path, :html => {:method => :post, :multipart => true}) do |f|%>
+  <%= form_tag(params.merge(:controller => '/admin/content', :action => 'merge'), :method => :post, :id => "merge_with") do %>
     <h4><%= _("Merge Articles") %></h4>
-    Article ID <%= f.text_field :id, {:autocomplete => 'off', :style => 'width: 20%', :id => 'merge_with', :value => ""} %><br>
-    <%= f.submit "Merge"%>
+    Article ID <%= text_field_tag( :merge_id, nil, {:autocomplete => 'off', :style => 'width: 20%', :id => 'article_id', :value => ""}) %><br>
+    <%= submit_tag "Merge"%>
     
   <% end %>
 </div>    

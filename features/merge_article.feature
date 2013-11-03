@@ -28,29 +28,44 @@ Feature: Merge articles
   	Then I should see "Barfoo"
   	When I follow "Barfoo"
   	Then "merge_with" should not be visible
-@wip
+
 	Scenario: Merged article should have title of first article
-		Given I merge "Foobar" with "Barfoo"
-		And I am on the admin content page
-  	Given I am on the all articles page
+  	Given I am logged into the admin panel
+		And I am on the all articles page
+		And I merge "Foobar" with "Barfoo"
+		Then I should see "Merged files successfully"
+  	And I am on the all articles page
 		Then I should see "Foobar"
 		And I should not see "Barfoo"
-@wip
+
 	Scenario: Merged article contains text of both articles
-		Given I merge "Foobar" with "Barfoo"
-		And I am on the home page
-  	Given I am on the all articles page
-		And I follow "Foobar"
-		Then I should see "Lorem Ipsum"
+  	Given I am logged into the admin panel
+		And I am on the all articles page
+		And I merge "Foobar" with "Barfoo"
+		Then I should see "Merged files successfully"
+		And I should see "Lorem Ipsum"
 		And I should see "dolor sit amet"
-@wip
+
 	Scenario: Merged article should have author of first article
-		Given I merge "Foobar" with "Barfoo"
-		And I am on home page
-  	Given I am on the all articles page
-		Then I should see "admin"
-		And I should not see "You"
-	
+  	Given I am logged into the admin panel
+		And I am on the all articles page
+		And I merge "Foobar" with "Barfoo"
+		Then I should see "Merged files successfully"
+  	When I am on the all articles page
+  	Then I should not see "Barfoo"
+		And I should not see "Potato"
+
 	Scenario: Merged article should contain both articles' comments
+  	Given I am logged into the admin panel
+  	When I add the comment "Tranquil as a forest" to the article "Foobar"
+  	And I add the comment "But a fire within" to the article "Barfoo"
+		And I am on the all articles page
+		And I merge "Foobar" with "Barfoo"
+		When I go to the home page
+		Then I should see "Foobar"
+		And I should not see "Barfoo"
+		When I follow "Foobar"
+		Then I should see "Tranquil as a forest"
+		And I should see "But a fire within"
 		
 	
