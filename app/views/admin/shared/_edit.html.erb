@@ -4,3 +4,12 @@
   <%= render :partial => "form" %>
 
 <% end %>
+<div class='' style='display: <%=@hidden%>'>
+  <%= form_for(@article, :url => admin_content_path, :html => {:method => :post, :multipart => true}) do |f|%>
+    <h4><%= _("Merge Articles") %></h4>
+    Article ID <%= f.text_field :id, {:autocomplete => 'off', :style => 'width: 20%', :id => 'merge_with', :value => ""} %><br>
+    <%= f.submit "Merge"%>
+    
+  <% end %>
+</div>    
+

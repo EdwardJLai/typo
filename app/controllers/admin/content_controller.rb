@@ -10,6 +10,10 @@ class Admin::ContentController < Admin::BaseController
     @items = Tag.find_with_char params[:article][:keywords].strip
     render :inline => "<%= raw auto_complete_result @items, 'name' %>"
   end
+  
+  def merge
+  	@article = Article.find(params[:id])
+  end
 
   def index
     @search = params[:search] ? params[:search] : {}
@@ -24,11 +28,13 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def new
+  	@new = true
     new_or_edit
   end
 
   def edit
     @article = Article.find(params[:id])
+    #@hidden = current_user.admin? ? 'block' : 'none'
     unless @article.access_by? current_user
       redirect_to :action => 'index'
       flash[:error] = _("Error, you are not allowed to perform this action")
@@ -144,6 +150,8 @@ class Admin::ContentController < Admin::BaseController
     id = params[:article][:id] if params[:article] && params[:article][:id]
     @article = Article.get_or_build_article(id)
     @article.text_filter = current_user.text_filter if current_user.simple_editor?
+    #@hidden = :hidden
+    @hidden = (current_user.admin? and @new != true)? 'block' : 'none'
 
     @post_types = PostType.find(:all)
     if request.post?
